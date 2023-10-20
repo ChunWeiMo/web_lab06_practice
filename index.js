@@ -7,6 +7,26 @@ Each item in the history log can be deleted. The whole log can be cleared.
 The calculator should be able to perform operations on decimal numbers.
 */
 
+function history(x, y, symbol, operator) {
+    if (operator == "addbtn") {
+        symbol = "+";
+        color = "red";
+    } else if (operator == "subbtn") {
+        symbol = "-";
+        color = "blue";
+    } else if (operator == "mulbtn") {
+        symbol = "*";
+        color = "purple";
+    } else {
+        symbol = "/";
+        color = "green";
+    }
+    console.log(color)
+
+    // $("#history").append("<li>" + x + symbol + y + " = " + result + "<span>" + "<button class=\"hide\">Hide this</button>" + "</span>" + "</li>").children().css("background-color",color);
+    $("#history").append("<li style='background-color:" + color + "';>" + x + symbol + y + " = " + result + "<span>" + "<button class=\"hide\">Hide this</button>" + "</span>" + "</li>");
+    // $("#history").append("<li>" + x + symbol + y + " = " + result + "<span>" + "<button class=\"hide\">Hide this</button>" + "</span>" + "</li>");
+}
 
 function calculate() {
     x = $("#operand1").val();
@@ -40,15 +60,12 @@ function calculate() {
     }
 
     $("#result").html("<b>" + result + "</b>");
-    history(x, y, symbol, result);
+    history(x, y, symbol, operator, result);
 }
 
-function history(x, y, symbol) {
-    $("#history").append("<li>" + x + symbol + y + "=" + result + "<span>" + "<button class=\"hide\">Hide this</button>" + "</span>" + "</li>");
-}
 
 function hide() {
-    console.log("this")
+    console.log("hide is clicked.")
     $(this).parent().parent().remove()
 }
 
@@ -58,7 +75,7 @@ function setup() {
 
     $(".operator").click(calculate);
     $("#history").on("click", ".hide", hide);
-    
+
 }
 
 $(document).ready(setup);
